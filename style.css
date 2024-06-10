@@ -1,0 +1,79 @@
+.ccontainer {
+  width: 90%;
+    margin: 0 auto;
+}
+h1, h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+h1{
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.btn-wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.table-wrapper {
+    overflow-x: auto; /* Добавляет горизонтальную прокрутку при необходимости */
+    max-width: 100%; /* Делает таблицу растягиваемой по ширине */
+}
+.table {
+    width: 100%; /* Заполняет всю доступную ширину */
+    table-layout: fixed; /* Зафиксированная ширина столбцов */
+}
+
+.table th {
+    padding: 8px; /* Подберите подходящий отступ */
+    white-space: nowrap; /* Запрещает перенос текста */
+    resize: horizontal; /* Добавляет возможность изменения ширины столбца */
+    overflow: hidden; /* Скрытие лишнего содержимого */
+}
+.resizable {
+    text-transform: capitalize;
+}
+.web_site {
+    text-transform: lowercase;
+}
+/* -------scroll to up------------ */
+body {
+    position: relative;
+ }
+ .to-top {
+    width: auto;
+    position: fixed;
+    z-index: 999;
+    bottom: 17px;
+    right: 32px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: all .4s ease-in-out;
+  }
+  .to-top:hover {
+      transform: scale(1.1);
+    }
+  .to-top.active {
+    bottom: 32px;
+    pointer-events: auto;
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .icon-up-arrow {
+    width: 40px;
+  }
+@media screen and (max-width: 1099px){
+     .icon-up-arrow {
+    width: 24px;
+  } 
+}
+  
+
