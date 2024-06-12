@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 // Читаем файл data.json
-fs.readFile('data2.json', 'utf8', (err, data) => {
+fs.readFile('data.json', 'utf8', (err, data) => {
     if (err) {
         console.error('Ошибка при чтении файла:', err);
         return;
