@@ -99,14 +99,12 @@ function generateContactList(namejson) {
     return response.json();
   }).then(function (data) {
     allProducts = data; // перезаписываем данные в массиве allProducts
-    // console.log(allProducts);
 
     var uniqueKantonsFilter = allProducts.map(function (product) {
       return product.person_kanton;
     }).filter(function (value, index, self) {
       return self.indexOf(value) === index;
-    }); // console.log(uniqueKantonsFilter); // выводим уникальные значения в консоль
-
+    });
     generateContactListMarkup(); // вызываем функцию для генерации разметки после получения данных
   })["catch"](function (error) {
     return console.error('Ошибка при загрузке данных:', error);
@@ -124,7 +122,6 @@ function generateContactListMarkup() {
     // Проверяем, был ли уже добавлен этот ID
 
     if (seenIds.has(personId)) {
-      // console.warn(`Дубликат ID: ${personId}, пропускаем.`);
       continue; // Пропускаем этот элемент, если ID уже существует
     }
 
@@ -143,6 +140,45 @@ function generateContactListMarkup() {
   document.getElementById('data-table').innerHTML = html;
 }
 
+function downloadCSV() {
+  var csvContent = "data:text/csv;charset=utf-8,";
+  csvContent += "Row Number,Full Name,Country Code,Phone Mobile,Phone Privat,Phone Arbeit,Email\n";
+  var seenIds = new Set(); // Используем Set для хранения уникальных ID
+
+  var rowNumber = 0;
+
+  for (var i = 0; i < allProducts.length; i++) {
+    var personId = allProducts[i].person_id; // Получаем ID текущего человека
+    // Проверяем, был ли уже добавлен этот ID
+
+    if (seenIds.has(personId)) {
+      continue; // Пропускаем этот элемент, если ID уже существует
+    }
+
+    seenIds.add(personId); // Добавляем ID в Set, чтобы избежать дубликатов
+    // Увеличиваем номер строки
+
+    rowNumber++; // Получаем международный код по кантону
+
+    var internationalCode = countryCodes[allProducts[i].person_kanton] || 'N/A'; // По умолчанию 'N/A'
+    // Убираем пробелы из телефонных номеров
+
+    var telefonMobil = allProducts[i].person_telefon_mobil ? allProducts[i].person_telefon_mobil.replace(/\s+/g, '') : '';
+    var telefonPrivat = allProducts[i].person_telefon_privat ? allProducts[i].person_telefon_privat.replace(/\s+/g, '') : '';
+    var telefonArbeit = allProducts[i].person_telefon_arbeit ? allProducts[i].person_telefon_arbeit.replace(/\s+/g, '') : '';
+    var row = "".concat(rowNumber, ",\"").concat(allProducts[i].person_vorname, " ").concat(allProducts[i].person_nachname, "\",").concat(internationalCode, ",").concat(telefonMobil, ",").concat(telefonPrivat, ",").concat(telefonArbeit, ",").concat(allProducts[i].person_email, "\n");
+    csvContent += row;
+  }
+
+  var encodedUri = encodeURI(csvContent);
+  var link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", "contacts.csv");
+  document.body.appendChild(link); // Required for FF
+
+  link.click(); // This will download the data file named "contacts.csv"
+}
+
 document.getElementById('button1').addEventListener('click', function () {
   return generateContactList('horse1');
 });
@@ -152,3 +188,4 @@ document.getElementById('button2').addEventListener('click', function () {
 document.getElementById('button3').addEventListener('click', function () {
   return generateContactList('horse3');
 });
+document.getElementById('downloadCsv').addEventListener('click', downloadCSV);

@@ -16,6 +16,7 @@
                 <button id="button1">Get Swiss Contact 1</button>
                 <button id="button2">Get Swiss Contact 2</button>
                 <button id="button3">Get Swiss Contact 3</button>
+                <!-- <button id="downloadCsv">Download CSV</button> -->
             </div>
             <div class="table-wrapper"> 
                 <table class="table table-bordered table-success table-striped" contenteditable="true">
@@ -42,47 +43,9 @@
 			<path d="M16 8.07788L9 1L2 8.07788" stroke="#7b93b6c2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
     	</svg>
    </div>
+   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script> -->
+
     <script src="./main.js"></script>
-    <!-- <script>
-        let allProducts = [];
 
-        function generateContactList(namejson) {
-            let name = `${namejson}.json`;
-            fetch(name)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                allProducts = data; // перезаписываем данные в массиве allProducts
-                console.log(allProducts);
-                generateContactListMarkup(); // вызываем функцию для генерации разметки после получения данных
-            })
-            .catch(error => console.error('Ошибка при загрузке данных:', error));
-        }
-
-        function generateContactListMarkup() {
-            let html = '';
-            for (let i = 0; i < allProducts.length; i++) {
-                let rowNumber = i + 1; // Номер строки по порядку
-                html += `
-                <tr>
-                    <td>${rowNumber}</td>
-                    <td>${allProducts[i].person_vorname} ${allProducts[i].person_nachname}</td>
-                    <td>${allProducts[i].person_kanton}</td>
-                    <td>${allProducts[i].person_telefon_mobil}</td>
-                    <td>${allProducts[i].person_telefon_privat}</td>
-                    <td>${allProducts[i].person_telefon_arbeit}</td>
-                    <td>${allProducts[i].person_email}</td>
-                </tr>
-              `;
-            }
-            document.getElementById('data-table').innerHTML = html;
-        }
-
-        document.getElementById('button1').addEventListener('click', () => generateContactList('horse1'));
-    </script> -->
 </body>
 </html>
