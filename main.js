@@ -122,3 +122,4 @@ function generateContactListMarkup() {
 
 document.getElementById('button1').addEventListener('click', () => generateContactList('horse1'));
 document.getElementById('button2').addEventListener('click', () => generateContactList('horse2'));
+document.getElementById('button3').addEventListener('click', () => generateContactList('horse3'));
